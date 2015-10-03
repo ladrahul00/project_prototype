@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Hello World</title>
+		<style>
+			body{
+				font-family:sans-serif, Arial;
+				background-color:#ffffff;
+			}
+		</style>
+		<script type="text/javascript">
+			(function() {
+				var method;
+				var noop = function () {};
+				var methods = [
+					'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
+					'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
+					'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
+					'timeStamp', 'trace', 'warn'
+				];
+				var length = methods.length;
+				var console = (window.console = window.console || {});
+
+				while (length--) {
+					method = methods[length];
+
+					// Only stub undefined methods.
+					if (!console[method]) {
+						console[method] = noop;
+					}
+				}
+			}());
+		</script>
+	</head>
+	<body>
+
+	<p>
+		This auto-generated index.html file is the starting point for your application.
+	</p>
+
+	<p>The Javascript SDK is a convenience wrapper for all the methods in our REST API. The SDK contains your REST endpoint and API key so you can start coding immediately. When a new service is provisioned in the Admin Console the JavaScript SDK will automatically include that service the next time your application is loaded.</p>
+
+	<p>Access the SDK by using the "df" object. You can see the "df" object in your debugger by opening up the DOM inspection tab. The "df" object is attached to the "window" object. For example, using Chrome's Dev Tools, open the console and start typing "window.df.apis" to display all the methods and properties.</p>
+
+	<p>Use of this SDK on the local file system requires "*" to be in your list of allowed hosts in the CORS configuration section of the Admin app.</p>
+	<br/>
+	<p>
+		View the <a href="readme.html">README</a> for helpful information and tutorials, including CORs access, authentication, and sessions.
+	</p>
+
+	<h3>Making API calls</h3>
+
+
+	<p>---------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+
+	<p><b>Authenticate into your DreamFactory Services Platform</b><br/>
+	<p>First, log in to your DreamFactory Services Platform to see these API calls work.</p>
+	<p>
+
+		<input type="email" id="email"><br/>
+		<input type="password" id="password"><br/>
+		<button onclick="window.app.login()">Log In</button>
+		<button onclick="window.app.logout()">Log Out</button>
+	<div id="login-status" style="color:blue"></div>
+
+
+	<p>---------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+	<P><b>Retrieve records from the "Customer" sample table located in your DreamFactory Services Platform</b></P>
+
+	<pre>
+	   window.df.apis.db.getRecords({table_name: "Customer"}, function (response) {
+			  //Do something with the data;
+				console.log(response);
+			});
+	</pre>
+	<button style="display:none" id="try-now-get" onclick="window.app.getTodos()">Try it Now</button><br/>
+	<p><b>Response:</b></p>
+	<textarea class="results" style="width:400px;height:200px" id="get-results">Loading APIs...</textarea>
+
+
+	<p>---------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+	<P><b>Insert records into the "Customer" sample table located in your DreamFactory Services Platform</b></P>
+
+	<pre>
+			var item = {"record":[{"name":"New Item","complete":false}]};
+			window.df.apis.db.createRecords({"table_name":"Customer", "body":item}, function(response) {
+				document.getElementById("post-results").innerHTML = JSON.stringify(response);
+			}, function(response) {
+				document.getElementById("post-results").innerHTML = JSON.stringify(response);
+			});
+	</pre>
+	<button style="display:none" id="try-now-post" onclick="window.app.addTodo()">Try it Now</button><br/>
+	<p><b>Response:</b></p>
+	<textarea class="results" style="width:400px;height:200px" id="post-results">Loading APIs...</textarea>
+
+	<p>---------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+	<P><b>Update a record to be complete in the "Customer" sample table located in your DreamFactory Services Platform</b></P>
+
+	<pre>
+			var id= document.getElementById("update-id").value;
+			var complete = true;
+			var item = {"record":[{"id":id,"complete":complete}]};
+			df.apis.db.updateRecords({"table_name":"Customer", "body":item}, function(response) {
+				document.getElementById("update-results").innerHTML = JSON.stringify(response);
+			}, function(response) {
+				document.getElementById("update-results").innerHTML = JSON.stringify(response);
+			});
+	</pre>
+	ID of record to update : <input type="text" id="update-id">
+	<button style="display:none" id="try-now-update" onclick="window.app.updateTodo()">Try it Now</button><br/>
+	<p><b>Response:</b></p>
+	<textarea class="results" style="width:400px;height:200px" id="update-results">Loading APIs...</textarea>
+
+	<p>---------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+
+	<P><b>Delete a record from the "Customer" sample table located in your DreamFactory Services Platform</b></P>
+	<pre>
+			var id= document.getElementById("delete-id").value;
+			window.df.apis.db.deleteRecords({"table_name":"Customer", "ids":id}, function(response) {
+				document.getElementById("delete-results").innerHTML = JSON.stringify(response);
+			}, function(response) {
+				document.getElementById("delete-results").innerHTML = JSON.stringify(response);
+			});
+	</pre>
+	ID of record to delete : <input type="text" id="delete-id">
+	<button style="display:none" id="try-now-delete" onclick="window.app.deleteTodo()">Try it Now</button><br/>
+	<p><b>Response:</b></p>
+	<textarea class="results" style="width:400px;height:200px" id="delete-results">Loading APIs...</textarea>
+
+
+	<script src='lib/shred.bundle.js' type='text/javascript'></script>
+	<script src='lib/swagger.js' type='text/javascript'></script>
+	<script src='lib/sdk-init.js' type='text/javascript'></script>
+	<script src='app.js' type='text/javascript'></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>
