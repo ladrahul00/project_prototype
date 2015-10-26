@@ -1,21 +1,21 @@
-<form id="login-form">
-  <div class="heading">Login to ShopZoo</div>   
-  <div class="log">
-    <label for="email">Email</label> <br />
-    <input type="email" name="email" id="email" /> <br />
-    <label for="password">Password</label> <br />
-    <input type="password" name="password" id="pass" /> <br />
-    <input type="submit" value="Login" onclick="loginCustomer()"/>
-      
-    <div class="connect">Connect with</div>
-    <a href="" class="facebook">
-      <span class="fontawesome-facebook"></span>
-    </a> <br />
-    <a href="" class="twitter">
-      <span class="fontawesome-twitter"></span>
-    </a> <br />
-    <a href="" class="google-plus">
-      <span class="fontawesome-google-plus"></span>
-    </a>
-  </div>
-</form> 
+<md-content layout-padding>
+<div layout="column" layout-align="center center">
+    <div>
+        <img class="app-logo-image" src="img/logobaby.png"/>
+    </div>
+    <div>
+        <md-input-container>
+            <label for="email">Email</label>
+            <input type="email" id="email" /> <br />
+        </md-input-container>
+    </div>
+    <div>
+        <md-input-container>
+            <label for="password">Password</label> <br />
+            <input type="password" name="password" id="pass" /> <br />
+        </md-input-container>
+    </div>
+    <div><md-button class="md-accent md-raised md-hue-2" onclick="loginCustomer()">Log-In</md-button></div>
+    <div><a href="#/signup"><md-button class="md-accent md-raised md-hue-2">SIGNUP</md-button></a></div>
+</div>
+</md-content>   

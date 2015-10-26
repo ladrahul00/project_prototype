@@ -1,13 +1,17 @@
-var custApp = angular.module('custApp',['ngRoute']);
+var custApp = angular.module('custApp',['ngRoute','ngMaterial']);
 
-
+custApp.config(function($mdThemingProvider){
+  $mdThemingProvider.theme('default')
+    .primaryPalette('red')
+    .accentPalette('red');
+});
     
 custApp.config(function ($routeProvider) {
     
    $routeProvider
    
    .when('/',{
-       templateUrl : 'pages/loginsignup.html',
+       templateUrl : 'pages/login.html',
        controller : 'defaultController'
    })
    
@@ -21,11 +25,19 @@ custApp.config(function ($routeProvider) {
        controller : 'signupController'
    })
    
+   .when('/fetchlocation',{
+       templateUrl : 'pages/fetchlocation.html',
+       controller : 'fetchlocationController'
+   })
    
 });
 
-custApp.controller('defaultController',['$scope', '$log', function($scope, $log){
+custApp.controller('defaultController',['$scope', '$location', '$log', function($scope, $location, $log){
     $scope.name = 'default';
+    if($scope.islogedin)
+        $location.path('/fetchlocation');
+    else
+        $location.path('/login')
 }]);
 
 
@@ -35,6 +47,10 @@ custApp.controller('loginController',['$scope', '$log', function($scope, $log){
 
 custApp.controller('signupController',['$scope', '$log', function($scope, $log){
     $scope.name = 'signup';
+}]);
+
+custApp.controller('fetchlocationController',['$scope', '$log', function($scope, $log){
+    $scope.name = 'fetchlocation';
 }]);
 
 var Address = function (latitude, longitude, houseno, appartmane_name, street, city, state, landmark, pin){
